@@ -1,26 +1,23 @@
-import { Component } from 'react';
 import css from './Input.module.css';
 
-class Input extends Component {
-  render() {
-    return (
-      <>
-        <label className={css.label} htmlFor={this.props.id}>
-          {this.props.label}
-        </label>
-        <input
-          className={css.input}
-          type={this.props.type}
-          id={this.props.id}
-          pattern={this.props.pattern}
-          title={this.props.title}
-          value={this.props.value}
-          onChange={this.props.onChange}
-          required
-        />
-      </>
-    );
-  }
-}
+const Input = props => {
+  return (
+    <>
+      <label className={css.label} htmlFor={props.id}>
+        {props.label}
+      </label>
+      <input
+        className={css.input}
+        type={props.type}
+        id={props.id}
+        pattern={props.pattern}
+        title={props.title}
+        value={props.value}
+        onChange={props.onChange}
+        required
+      />
+    </>
+  );
+};
 
 export default Input;
