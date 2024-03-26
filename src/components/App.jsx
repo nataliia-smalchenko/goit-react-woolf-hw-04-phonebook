@@ -6,7 +6,7 @@ import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
 const App = () => {
-  const [contacts, setContacts] = useState(loadContacts());
+  const [contacts, setContacts] = useState(null);
   const [filter, setFilter] = useState('');
 
   function loadContacts() {
@@ -18,6 +18,13 @@ const App = () => {
   }
 
   useEffect(() => {
+    setContacts(loadContacts());
+  }, []);
+
+  useEffect(() => {
+    if (!contacts) {
+      return;
+    }
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
@@ -29,6 +36,9 @@ const App = () => {
   };
 
   const isNameExist = name => {
+    if (!contacts) {
+      return false;
+    }
     return contacts.find(contact => contact.name === name);
   };
 
@@ -63,7 +73,9 @@ const App = () => {
       </Section>
       <Section title="Contacts">
         <Filter filter={filter} onChange={handleFilter} />
-        <ContactList list={filteredContacts()} onClick={removeContact} />
+        {contacts && (
+          <ContactList list={filteredContacts()} onClick={removeContact} />
+        )}
       </Section>
     </div>
   );
