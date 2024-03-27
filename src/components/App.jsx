@@ -6,7 +6,7 @@ import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
 const App = () => {
-  const [contacts, setContacts] = useState(null);
+  const [contacts, setContacts] = useState(loadContacts());
   const [filter, setFilter] = useState('');
 
   function loadContacts() {
@@ -18,13 +18,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    setContacts(loadContacts());
-  }, []);
-
-  useEffect(() => {
-    if (!contacts) {
-      return;
-    }
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
